@@ -9,36 +9,37 @@ import java.util.concurrent.TimeUnit
 
 class RetrofitManager private constructor() {
     companion object {
-        class Builder {
-            var mBaseUrl: String = ""
-            fun setBaseUrl(baseUrl: String): Builder {
-                mBaseUrl = baseUrl
-                return this
+        private lateinit var mRetrofitManager: RetrofitManager
+        private lateinit var mRetrofit: Retrofit
+        private lateinit var mBaseUrl: String
+        fun setInitBaseUrl(baseUrl: String){
+            mBaseUrl = baseUrl
+        }
+
+        fun getInstance(): RetrofitManager {
+            if(mRetrofitManager == null){
+                mRetrofitManager = RetrofitManager()
+                //初始化一个OkHttpClient
+                val builder = OkHttpClient.Builder()
+                    .connectTimeout(30000, TimeUnit.MILLISECONDS)
+                    .readTimeout(30000, TimeUnit.MILLISECONDS)
+                    .writeTimeout(30000, TimeUnit.MILLISECONDS)
+//                  builder.addInterceptor(new LoggingInterceptor());
+                val okHttpClient = builder.build()
+                mRetrofit = Retrofit.Builder()
+                    .addConverterFactory(GsonConverterFactory.create())
+                    .addConverterFactory(ScalarsConverterFactory.create())
+                    .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+                    .client(okHttpClient)
+                    .baseUrl(mBaseUrl)
+                    .build()
             }
-            fun build(): Retrofit {
-                return RetrofitManager().initRetrofit(mBaseUrl)
-            }
+            return mRetrofitManager
         }
     }
-    fun initRetrofit(baseUrl: String): Retrofit {
-        //初始化一个OkHttpClient
-        val builder = OkHttpClient.Builder()
-            .connectTimeout(30000, TimeUnit.MILLISECONDS)
-            .readTimeout(30000, TimeUnit.MILLISECONDS)
-            .writeTimeout(30000, TimeUnit.MILLISECONDS)
-//            builder.addInterceptor(new LoggingInterceptor());
-        val okHttpClient = builder.build()
-        val mRetrofit = Retrofit.Builder()
-            .addConverterFactory(GsonConverterFactory.create())
-            .addConverterFactory(ScalarsConverterFactory.create())
-            .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-            .client(okHttpClient)
-            .baseUrl(baseUrl)
-            .build()
-        return mRetrofit
+
+    //返回一个泛型
+    fun <T> getServer(server: Class<T>): T {
+        return mRetrofit.create(server)
     }
-
-
-
-
 }
