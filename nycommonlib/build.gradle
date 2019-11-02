@@ -15,7 +15,8 @@ android {
         versionName "1.0"
         kapt {
             arguments {
-                arg("AROUTER_MODULE_NAME", project.getName())
+                arg("AROUTER_MODULE_NAME", "Common")
+//                arg("AROUTER_MODULE_NAME", project.getName())
             }
         }
     }
@@ -27,7 +28,11 @@ android {
         }
     }
 }
-
+repositories {
+    flatDir {
+        dirs 'libs'
+    }
+}
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     api 'androidx.appcompat:appcompat:1.1.0'
@@ -35,7 +40,7 @@ dependencies {
 
 // kotlin
     api "androidx.core:core-ktx:1.1.0"
-    api "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    api "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
 
 // butterknife----https://github.com/JakeWharton/butterknife
     api 'com.jakewharton:butterknife:10.2.0'
@@ -86,8 +91,8 @@ dependencies {
     api 'org.greenrobot:eventbus:3.1.1'
 
 // arouter----https://github.com/alibaba/ARouter
-//    api  'com.alibaba:arouter-api:1.5.0'
-//    kapt 'com.alibaba:arouter-compiler:1.2.2'
+    api  'com.alibaba:arouter-api:1.5.0'
+    kapt 'com.alibaba:arouter-compiler:1.2.2'
 }
 repositories {
     mavenCentral()
