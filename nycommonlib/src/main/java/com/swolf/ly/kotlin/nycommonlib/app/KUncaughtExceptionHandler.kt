@@ -49,7 +49,7 @@ class KUncaughtExceptionHandler(context: Context) : Thread.UncaughtExceptionHand
         sb.append(result)
         var time = format.format(Date())
         var fileName = KFileUtil.rootDirectory.absolutePath+File.separator+"kotlin_error"+ File.separator + "error-" + time + ".txt";
-        val fileUtil = KFileUtil.getInstance()
+        val fileUtil = KFileUtil.instance
         fileUtil.createFile(fileName)
         fileUtil.write(File(fileName),sb.toString())
         printWriter.close()
