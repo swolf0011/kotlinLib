@@ -4,27 +4,38 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-kapt'
 apply plugin: 'com.jakewharton.butterknife' // 添加
 android {
-    compileSdkVersion 29
-    buildToolsVersion "29.0.2"
-
-
+    compileSdkVersion rootProject.ext.android.compileSdkVersion
+    buildToolsVersion rootProject.ext.android.buildToolsVersion
     defaultConfig {
-        minSdkVersion 21
-        targetSdkVersion 29
-        versionCode 1
-        versionName "1.0"
+        minSdkVersion rootProject.ext.android.minSdkVersion
+        targetSdkVersion rootProject.ext.android.targetSdkVersion
+        versionCode rootProject.ext.android.versionCode
+        versionName rootProject.ext.android.versionName
         kapt {
             arguments {
                 arg("AROUTER_MODULE_NAME", "Common")
-//                arg("AROUTER_MODULE_NAME", project.getName())
+                //arg("AROUTER_MODULE_NAME", project.getName())
             }
         }
+        multiDexEnabled true
+        ndk {
+            //设置支持的SO库架构,其它可以不用。
+            abiFilters "armeabi-v7a" //,"armeabi", "arm64-v8a", "x86", "x86_64"
+        }
+        compileOptions {
+            sourceCompatibility JavaVersion.VERSION_1_8
+            targetCompatibility JavaVersion.VERSION_1_8
+        }
     }
-
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    sourceSets {
+        main {
+            jniLibs.srcDirs = ['libs']
         }
     }
 }
@@ -35,64 +46,50 @@ repositories {
 }
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    api 'androidx.appcompat:appcompat:1.1.0'
-    api "androidx.constraintlayout:constraintlayout:1.1.3"
-
+    implementation rootProject.ext.dependencies.appcompat
+    implementation rootProject.ext.dependencies.constraintlayout
 // kotlin
-    api "androidx.core:core-ktx:1.1.0"
-    api "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
-
-// butterknife----https://github.com/JakeWharton/butterknife
-    api 'com.jakewharton:butterknife:10.2.0'
-    kapt  'com.jakewharton:butterknife-compiler:10.2.0'
-
+    api rootProject.ext.dependencies.core_ktx
+    api rootProject.ext.dependencies.kotlin_stdlib_jdk8
+// butterknife
+    api rootProject.ext.dependencies.butterknife
+    kapt rootProject.ext.dependencies.butterknife_compiler
 // recyclerview
-    api 'androidx.recyclerview:recyclerview:1.0.0'
-
+    api rootProject.ext.dependencies.recyclerview
 // gson
-    api 'com.google.code.gson:gson:2.8.5'
-
+    api rootProject.ext.dependencies.gson
 // greendao
-    api 'org.greenrobot:greendao:3.2.2'
-
+    api rootProject.ext.dependencies.greendao
 //room
-    api "androidx.room:room-runtime:2.2.0-rc01"
-    api "androidx.room:room-rxjava2:2.2.0-rc01"
-    api "androidx.room:room-guava:2.2.0-rc01"
-    kapt  "androidx.room:room-compiler:2.2.0-rc01"
-
+    api rootProject.ext.dependencies.room_runtime
+    api rootProject.ext.dependencies.room_rxjava
+    api rootProject.ext.dependencies.room_guava
+    kapt rootProject.ext.dependencies.room_compiler
 // glide
-    api 'com.github.bumptech.glide:glide:4.9.0'
-    kapt  'com.github.bumptech.glide:compiler:4.9.0'
-
+    api rootProject.ext.dependencies.glide
+    kapt rootProject.ext.dependencies.glide_compiler
 // Retrofit
-    api "com.squareup.retrofit2:retrofit:2.3.0"
-    api "com.squareup.retrofit2:converter-gson:2.3.0"
-    api "com.squareup.retrofit2:adapter-rxjava2:2.3.0"
-    api 'com.squareup.retrofit2:converter-scalars:2.3.0'
-
+    api rootProject.ext.dependencies.retrofit
+    api rootProject.ext.dependencies.converter_gson
+    api rootProject.ext.dependencies.adapter_rxjava2
+    api rootProject.ext.dependencies.converter_scalars
 // OkHttp3
-    api 'com.squareup.okhttp3:okhttp:4.0.1'
-    api "com.squareup.okhttp3:logging-interceptor:3.10.0"
-    api 'com.squareup.okio:okio:2.2.2'
-
-// RxJava3----https://github.com/ReactiveX/RxJava
-    api 'io.reactivex.rxjava3:rxjava:3.0.0-RC4'
-
-// RxAndroid----https://github.com/ReactiveX/RxAndroid
-    api 'io.reactivex.rxjava2:rxandroid:2.1.1'
-
+    api rootProject.ext.dependencies.okhttp
+    api rootProject.ext.dependencies.logging_interceptor
+    api rootProject.ext.dependencies.okio
+// RxJava3
+    api rootProject.ext.dependencies.rxjava
+// RxAndroid
+    api rootProject.ext.dependencies.rxandroid
 // RxLifecycle
-    api "com.trello.rxlifecycle2:rxlifecycle:2.2.1"
-    api "com.trello.rxlifecycle2:rxlifecycle-android:2.2.1"
-    api "com.trello.rxlifecycle2:rxlifecycle-components:2.2.1"
-
-//eventbus----https://github.com/greenrobot/EventBus
-    api 'org.greenrobot:eventbus:3.1.1'
-
-// arouter----https://github.com/alibaba/ARouter
-    api  'com.alibaba:arouter-api:1.5.0'
-    kapt 'com.alibaba:arouter-compiler:1.2.2'
+    api rootProject.ext.dependencies.rxlifecycle
+    api rootProject.ext.dependencies.rxlifecycle_android
+    api rootProject.ext.dependencies.rxlifecycle_components
+//eventbus
+    api rootProject.ext.dependencies.eventbus
+// arouter
+    api rootProject.ext.dependencies.arouter_api
+    kapt rootProject.ext.dependencies.arouter_compiler
 }
 repositories {
     mavenCentral()

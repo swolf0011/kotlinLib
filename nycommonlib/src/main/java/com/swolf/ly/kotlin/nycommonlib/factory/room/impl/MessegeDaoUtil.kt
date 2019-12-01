@@ -1,6 +1,8 @@
-package com.swolf.ly.kotlin.nycommonlib.factory.room
+package com.swolf.ly.kotlin.nycommonlib.factory.room.impl
 
 import android.content.Context
+import androidx.lifecycle.LiveData
+import com.swolf.ly.kotlin.nycommonlib.factory.room.MyRoomDatabase
 
 
 class MessegeDaoUtil(context: Context) {
@@ -28,19 +30,13 @@ class MessegeDaoUtil(context: Context) {
         dao.update(m)
     }
 
-    fun queryAll(): List<Message> {
-        var list: List<Message>? = dao.queryAll()
-        if (list == null) {
-            list = ArrayList()
-        }
+    fun queryAll(): LiveData<List<Message>> {
+        var list: LiveData<List<Message>> = dao.queryAll()
         return list
     }
 
-    fun query(pageSize: Int, pageNum: Int): List<Message> {
-        var list: List<Message>? = dao.query(pageSize, pageNum)
-        if (list == null) {
-            list = ArrayList()
-        }
+    fun query(pageSize: Int, pageNum: Int): LiveData<List<Message>>{
+        var list: LiveData<List<Message>> = dao.query(pageSize, pageNum)
         return list
     }
 

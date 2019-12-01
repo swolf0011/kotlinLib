@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
  * 封装一个kotlin下的通用adapter
  */
 
-class KRecyclerViewAdapters<T:KRecyclerViewAdapterEntity> private constructor() : RecyclerView.Adapter<KRecyclerViewViewHolderHelper>() {
+class KRecyclerViewAdapters<T:KRecyclerViewAdapterEntity> : RecyclerView.Adapter<KRecyclerViewViewHolderHelper>() {
 
     //数据
     private var mDatalist: ArrayList<T>? = null
