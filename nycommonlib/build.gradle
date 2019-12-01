@@ -46,8 +46,8 @@ repositories {
 }
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation rootProject.ext.dependencies.appcompat
-    implementation rootProject.ext.dependencies.constraintlayout
+    api rootProject.ext.dependencies.appcompat
+    api rootProject.ext.dependencies.constraintlayout
 // kotlin
     api rootProject.ext.dependencies.core_ktx
     api rootProject.ext.dependencies.kotlin_stdlib_jdk8
@@ -62,7 +62,7 @@ dependencies {
     api rootProject.ext.dependencies.greendao
 //room
     api rootProject.ext.dependencies.room_runtime
-    api rootProject.ext.dependencies.room_rxjava
+    api rootProject.ext.dependencies.room_rxjava2
     api rootProject.ext.dependencies.room_guava
     kapt rootProject.ext.dependencies.room_compiler
 // glide

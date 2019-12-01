@@ -25,7 +25,7 @@ ext {
             greendao              : "org.greenrobot:greendao:3.2.2",
             //room
             room_runtime          : "androidx.room:room-runtime:2.2.0-rc01",
-            room_rxjava           : "androidx.room:room-rxjava2:2.2.0-rc01",
+            room_rxjava2          : "androidx.room:room-rxjava2:2.2.0-rc01",
             room_guava            : "androidx.room:room-guava:2.2.0-rc01",
             room_compiler         : "androidx.room:room-compiler:2.2.0-rc01",
             // glide
