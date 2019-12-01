@@ -48,48 +48,50 @@ dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     api rootProject.ext.dependencies.appcompat
     api rootProject.ext.dependencies.constraintlayout
-// kotlin
+    //kotlin
     api rootProject.ext.dependencies.core_ktx
     api rootProject.ext.dependencies.kotlin_stdlib_jdk8
-// butterknife
+    //butterknife
     api rootProject.ext.dependencies.butterknife
     kapt rootProject.ext.dependencies.butterknife_compiler
-// recyclerview
+    //recyclerview
     api rootProject.ext.dependencies.recyclerview
-// gson
+    //gson
     api rootProject.ext.dependencies.gson
-// greendao
+    //greendao
     api rootProject.ext.dependencies.greendao
-//room
+    //room
     api rootProject.ext.dependencies.room_runtime
     api rootProject.ext.dependencies.room_rxjava2
     api rootProject.ext.dependencies.room_guava
     kapt rootProject.ext.dependencies.room_compiler
-// glide
+    //glide
     api rootProject.ext.dependencies.glide
     kapt rootProject.ext.dependencies.glide_compiler
-// Retrofit
+    //Retrofit
     api rootProject.ext.dependencies.retrofit
     api rootProject.ext.dependencies.converter_gson
     api rootProject.ext.dependencies.adapter_rxjava2
     api rootProject.ext.dependencies.converter_scalars
-// OkHttp3
+    //OkHttp3
     api rootProject.ext.dependencies.okhttp
     api rootProject.ext.dependencies.logging_interceptor
     api rootProject.ext.dependencies.okio
-// RxJava3
+    //RxJava3
     api rootProject.ext.dependencies.rxjava
-// RxAndroid
+    //RxAndroid
     api rootProject.ext.dependencies.rxandroid
-// RxLifecycle
+    //RxLifecycle
     api rootProject.ext.dependencies.rxlifecycle
     api rootProject.ext.dependencies.rxlifecycle_android
     api rootProject.ext.dependencies.rxlifecycle_components
-//eventbus
+    //eventbus
     api rootProject.ext.dependencies.eventbus
-// arouter
+    //arouter
     api rootProject.ext.dependencies.arouter_api
     kapt rootProject.ext.dependencies.arouter_compiler
+    //material
+    api rootProject.ext.dependencies.material
 }
 repositories {
     mavenCentral()
