@@ -6,6 +6,13 @@ apply plugin: 'com.jakewharton.butterknife' // 添加
 android {
     compileSdkVersion rootProject.ext.android.compileSdkVersion
     buildToolsVersion rootProject.ext.android.buildToolsVersion
+    dexOptions {
+        javaMaxHeapSize "4g"
+        preDexLibraries = false
+        additionalParameters += '--multi-dex'
+        additionalParameters += '--set-max-idx-number=35000'//每个包内方法数上限（根据实际项目配置这个数，来适配4.0-4.4一些低端机型，因为拆分的dex太大，这些低端机型加载不了dex）
+        additionalParameters += '--minimal-main-dex'
+    }
     defaultConfig {
         minSdkVersion rootProject.ext.android.minSdkVersion
         targetSdkVersion rootProject.ext.android.targetSdkVersion
@@ -28,6 +35,13 @@ android {
         }
     }
     buildTypes {
+
+        debug {
+            zipAlignEnabled true
+            shrinkResources false
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
@@ -37,6 +51,9 @@ android {
         main {
             jniLibs.srcDirs = ['libs']
         }
+    }
+    dataBinding {
+        enabled = true
     }
 }
 repositories {
@@ -92,6 +109,25 @@ dependencies {
     kapt rootProject.ext.dependencies.arouter_compiler
     //material
     api rootProject.ext.dependencies.material
+
+
+    //multidex
+    api rootProject.ext.dependencies.multidex
+    api rootProject.ext.dependencies.multidex_instrumentation
+    //BaseRecyclerViewAdapterHelper
+    api rootProject.ext.dependencies.base_recycler_view_adapter_helper
+    //logger
+    api rootProject.ext.dependencies.logger
+
+    //leakcanary-android
+    debugApi 'com.squareup.leakcanary:leakcanary-android:1.6.1'
+    releaseApi 'com.squareup.leakcanary:leakcanary-android-no-op:1.6.1'
+    debugApi 'com.squareup.leakcanary:leakcanary-support-fragment:1.6.1'
+
+    //databinding
+    kapt 'com.android.databinding:compiler:3.1.4'
+
+
 }
 repositories {
     mavenCentral()
