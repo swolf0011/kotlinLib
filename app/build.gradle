@@ -2,6 +2,7 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
+apply plugin: 'com.jakewharton.butterknife' // 添加
 android {
     compileSdkVersion rootProject.ext.android.compileSdkVersion
     buildToolsVersion rootProject.ext.android.buildToolsVersion
@@ -11,6 +12,13 @@ android {
         targetSdkVersion rootProject.ext.android.targetSdkVersion
         versionCode rootProject.ext.android.versionCode
         versionName rootProject.ext.android.versionName
+
+        kapt {
+            arguments {
+                arg("AROUTER_MODULE_NAME", "App")
+//                arg("AROUTER_MODULE_NAME", project.getName())
+            }
+        }
     }
     signingConfigs {
         debug {
@@ -45,7 +53,7 @@ android {
         def date = new Date().format("yyyyMMddHHmmss")
         applicationVariants.all { variant ->
             variant.outputs.all {
-                outputFileName = "App_v${defaultConfig.versionName}_${date}_${variant.buildType.name}.apk"
+                outputFileName = "KotlinApp_v${defaultConfig.versionName}_${date}_${variant.buildType.name}.apk"
             }
         }
     }
@@ -55,12 +63,13 @@ android {
         }
     }
 }
-
+repositories {
+    flatDir {
+        dirs 'libs'
+    }
+}
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation rootProject.ext.dependencies.appcompat
-    implementation rootProject.ext.dependencies.constraintlayout
-// kotlin
-    implementation rootProject.ext.dependencies.core_ktx
-    implementation rootProject.ext.dependencies.kotlin_stdlib_jdk8
+
+    implementation project(path: ':nycommonlib')
 }
