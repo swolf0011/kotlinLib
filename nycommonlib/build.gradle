@@ -35,7 +35,6 @@ android {
         }
     }
     buildTypes {
-
         debug {
             zipAlignEnabled true
             shrinkResources false
